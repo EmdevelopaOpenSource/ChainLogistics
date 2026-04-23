@@ -1,4 +1,19 @@
-import { ProductRegistrationForm } from "@/components/forms/ProductRegistrationForm";
+import dynamic from "next/dynamic";
+
+const ProductRegistrationForm = dynamic(
+  () => import("@/components/forms/ProductRegistrationForm").then((mod) => mod.ProductRegistrationForm),
+  {
+    loading: () => (
+      <div className="h-96 flex items-center justify-center bg-white rounded-xl border p-8 shadow-sm">
+        <div className="flex flex-col items-center gap-4">
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-zinc-200 border-t-zinc-900" />
+          <p className="text-sm font-medium text-zinc-500">Loading registration form...</p>
+        </div>
+      </div>
+    ),
+    ssr: false,
+  }
+);
 
 export default function RegisterProductPage() {
   return (

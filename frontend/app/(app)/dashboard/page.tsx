@@ -26,9 +26,28 @@ import { ContractClientError } from "@/lib/stellar/contractClient";
 import { cn } from "@/lib/utils";
 import { DASHBOARD_REFRESH_INTERVAL_MS, DASHBOARD_RECENT_EVENTS_LIMIT } from "@/lib/constants";
 
-import { StatCard } from "@/components/analytics/StatCard";
-import { EventsChart } from "@/components/analytics/EventsChart";
-import { ActivityFeed } from "@/components/analytics/ActivityFeed";
+import dynamic from "next/dynamic";
+
+const StatCard = dynamic(
+  () => import("@/components/analytics/StatCard").then((mod) => mod.StatCard),
+  { ssr: false }
+);
+
+const EventsChart = dynamic(
+  () => import("@/components/analytics/EventsChart").then((mod) => mod.EventsChart),
+  {
+    loading: () => <div className="h-80 rounded-xl bg-zinc-100 animate-pulse" />,
+    ssr: false,
+  }
+);
+
+const ActivityFeed = dynamic(
+  () => import("@/components/analytics/ActivityFeed").then((mod) => mod.ActivityFeed),
+  {
+    loading: () => <div className="h-64 rounded-xl bg-zinc-100 animate-pulse" />,
+    ssr: false,
+  }
+);
 
 type EventsByTypeDatum = { type: string; count: number };
 type ActivityDatum = { date: string; count: number };

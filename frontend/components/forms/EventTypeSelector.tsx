@@ -7,7 +7,9 @@ export type EventType =
     | 'SHIP'
     | 'RECEIVE'
     | 'QUALITY_CHECK'
-    | 'TRANSFER';
+    | 'TRANSFER'
+    | 'REGISTER'
+    | 'CHECKPOINT';
 
 export const EVENT_TYPES: { id: EventType; label: string; description: string; icon: string }[] = [
     { id: 'HARVEST', label: 'Harvest / Collect', description: 'Product emerged from origin', icon: '🌾' },
@@ -17,6 +19,8 @@ export const EVENT_TYPES: { id: EventType; label: string; description: string; i
     { id: 'RECEIVE', label: 'Receive', description: 'Arrived at destination', icon: '🏢' },
     { id: 'QUALITY_CHECK', label: 'Quality Check', description: 'Passed inspection', icon: '✅' },
     { id: 'TRANSFER', label: 'Transfer Ownership', description: 'Changed acting owner', icon: '🤝' },
+    { id: 'REGISTER', label: 'Registered', description: 'Initial on-chain registration', icon: '📝' },
+    { id: 'CHECKPOINT', label: 'Checkpoint', description: 'Intermediate status check', icon: '📍' },
 ];
 
 interface EventTypeSelectorProps {

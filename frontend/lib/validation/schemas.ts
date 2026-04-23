@@ -79,3 +79,14 @@ export const eventTrackingSchema = z.object({
 });
 
 export type EventTrackingValues = z.infer<typeof eventTrackingSchema>;
+export const invoiceSchema = z.object({
+  amount: z.string().refine((val) => {
+    const num = parseFloat(val);
+    return !isNaN(num) && num > 0;
+  }, { message: "Amount must be a positive number" }),
+  due_date: z.string().refine((val) => {
+    return new Date(val) > new Date();
+  }, { message: "Due date must be in the future" }),
+});
+
+export type InvoiceValues = z.infer<typeof invoiceSchema>;

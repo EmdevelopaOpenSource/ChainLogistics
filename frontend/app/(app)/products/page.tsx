@@ -4,8 +4,18 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useWallet } from "@/lib/hooks/useWallet";
 import { getProductsByOwner } from "@/lib/contract/products";
 import type { Product } from "@/lib/types/product";
-import { ProductList } from "@/components/products/ProductList";
-import { ProductFilters, type FilterState } from "@/components/products/ProductFilters";
+import dynamic from "next/dynamic";
+import type { FilterState } from "@/components/products/ProductFilters";
+
+const ProductList = dynamic(
+  () => import("@/components/products/ProductList").then((mod) => mod.ProductList),
+  { ssr: false }
+);
+
+const ProductFilters = dynamic(
+  () => import("@/components/products/ProductFilters").then((mod) => mod.ProductFilters),
+  { ssr: false }
+);
 
 export default function ProductsPage() {
   const { publicKey } = useWallet();
